@@ -8,6 +8,8 @@ Integrantes:
 -Felipe Rebellaut
 
 ## Estructura del proyecto:
+
+```text
 codigo/
 |- fase1.py              # Fase I:  Identidad Criptográfica (KDF + RSA)
 |- fase2.py
@@ -16,14 +18,14 @@ codigo/
 |- requirements.txt
 |- Makefile
 |- claves/
-    |-202023024_2
-        |-key1_cifrado_priv.pem
-        |-key1_cifrado_pub.pem
-        |-key2_firma_priv.pem
-        |-key2_firma_pub.pem
-    |-202273058_7
-    |-202273132_K
-    |-202373089_0
+    |- 202023024_2
+        |- key1_cifrado_priv.pem
+        |- key1_cifrado_pub.pem
+        |- key2_firma_priv.pem
+        |- key2_firma_pub.pem
+    |- 202273058_7
+    |- 202273132_K
+    |- 202373089_0
 |- README.md
 
 ## Requisitos:
