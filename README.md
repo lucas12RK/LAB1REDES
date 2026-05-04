@@ -11,21 +11,22 @@ Integrantes:
 
 ```text
 codigo/
-|- fase1.py              # Fase I:  Identidad Criptográfica (KDF + RSA)
-|- fase2.py
-|- fase3.py
-|- fase4.py
+    |- fase1.py              # Fase I:  Identidad Criptográfica (KDF + RSA)
+    |- fase2.py
+    |- fase3.py
+    |- fase4.py
+    |- claves/
+        |- 202023024_2
+            |- key1_cifrado_priv.pem
+            |- key1_cifrado_pub.pem
+            |- key2_firma_priv.pem
+            |- key2_firma_pub.pem
+        |- 202273058_7
+        |- 202273132_K
+        |- 202373089_0
 |- requirements.txt
 |- Makefile
-|- claves/
-    |- 202023024_2
-        |- key1_cifrado_priv.pem
-        |- key1_cifrado_pub.pem
-        |- key2_firma_priv.pem
-        |- key2_firma_pub.pem
-    |- 202273058_7
-    |- 202273132_K
-    |- 202373089_0
+
 |- README.md
 
 ## Requisitos:
@@ -43,8 +44,8 @@ Genera las identidades criptográficas de los cuatro miembros del Consejo.
 Crea dos pares de llaves RSA-2048 por miembro (cifrado y firma) y quedan en la carpeta claves/.
 -Ingresa a la carpeta Laboratorio 1
 -Ejecuta: python fase1.py
-# Salida esperada:
-PS C:\Users\lucas\Desktop\a\uni\redes\Laboratorio 1> python fase1.py                
+# Salida esperada:             
+PS C:\Users\lucas\Desktop\a\uni\redes\Laboratorio 1\codigo> python fase1.py
 ========================================================================
 FASE 1 — CONSTRUCCIÓN DE IDENTIDAD CRIPTOGRÁFICA DEL CONSEJO
 ========================================================================
@@ -78,7 +79,7 @@ FASE 1 — CONSTRUCCIÓN DE IDENTIDAD CRIPTOGRÁFICA DEL CONSEJO
     KEY2 fp  : 6feb044663f25a2e  -> claves\202023024_2\key2_firma_priv.pem
 
 ========================================================================
-Llaves persistidas bajo: C:\Users\lucas\Desktop\a\uni\redes\Laboratorio 1\claves
+Llaves persistidas bajo: C:\Users\lucas\Desktop\a\uni\redes\Laboratorio 1\codigo\claves
 ========================================================================
 
 Las llaves generadas son deterministicas; correr fase1.py 2 veces con los mismos datos produce exactamente las mismas llaves.
