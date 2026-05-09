@@ -19,8 +19,10 @@ SEP = "=" * 72
 
 def _cargar_miembro(nombre: str, rol: str) -> dict:
     """
-    Carga las llaves del miembro.
-    Si no existen, las genera.
+    Nombre función: _cargar_miembro
+    Parámetros: nombre (string con el nombre), rol (string con el RUT/rol)
+    Descripción: Intenta cargar las llaves de un miembro desde archivo.
+                 Si no existen, las genera desde cero.
     """
 
     try:
@@ -52,7 +54,10 @@ def firmar_mensaje(
     key_priv: RSA.RsaKey
 ) -> bytes:
     """
-    Firma el mensaje usando RSA.
+    Nombre función: firmar_mensaje
+    Parámetros: mensaje (string a firmar), key_priv (llave privada RSA)
+    Descripción: Toma el mensaje, le aplica SHA256 y lo firma con la llave
+                 privada. Devuelve la firma en bytes.
     """
 
     h = SHA256.new(mensaje.encode("utf-8"))
@@ -66,7 +71,11 @@ def verificar_firma(
     key_pub: RSA.RsaKey
 ) -> bool:
     """
-    Verifica la firma del mensaje.
+    Nombre función: verificar_firma
+    Parámetros: mensaje (string original), firma (bytes de la firma),
+                key_pub (llave pública RSA)
+    Descripción: Verifica si la firma del mensaje es válida usando la llave
+                 pública. Devuelve True o False.
     """
 
     h = SHA256.new(mensaje.encode("utf-8"))
@@ -88,7 +97,10 @@ def cifrar_mensaje(
     key_pub_receptor: RSA.RsaKey
 ):
     """
-    Cifra el mensaje usando AES + RSA.
+    Nombre función: cifrar_mensaje
+    Parámetros: mensaje (string a cifrar), key_pub_receptor (llave pública RSA del receptor)
+    Descripción: Cifra el mensaje con AES y protege la session key con RSA-OAEP.
+                 Devuelve la session key cifrada, el IV y el cuerpo cifrado.
     """
 
     # Session key AES
@@ -123,7 +135,11 @@ def descifrar_mensaje(
     key_priv_receptor
 ):
     """
-    Descifra el mensaje.
+    Nombre función: descifrar_mensaje
+    Parámetros: enc_session (session key cifrada), iv (vector de inicialización),
+                cuerpo (mensaje cifrado), key_priv_receptor (llave privada RSA)
+    Descripción: Recupera la session key con RSA y la usa para descifrar el
+                 cuerpo con AES. Devuelve el mensaje en texto plano.
     """
 
     # Recuperamos la session key
@@ -155,7 +171,12 @@ def enviar_mensaje(
     llaves_receptor: dict,
 ) -> dict:
     """
-    Firma y cifra el mensaje.
+    Nombre función: enviar_mensaje
+    Parámetros: mensaje (string), nombre_emisor (string),
+                llaves_emisor (dict con llaves), llaves_receptor (dict con llaves)
+    Descripción: Firma el mensaje con la llave privada del emisor, lo cifra con
+                 la llave pública del receptor y arma un paquete en base64
+                 listo para enviar.
     """
 
     print("\n[1] Firmando mensaje con RSA...")
@@ -207,7 +228,12 @@ def recibir_mensaje(
     llaves_receptor: dict,
 ) -> tuple[Optional[str], bool, str]:
     """
-    Descifra y verifica el mensaje.
+    Nombre función: recibir_mensaje
+    Parámetros: paquete (dict con el mensaje cifrado y firmado),
+                llaves_receptor (dict con llaves)
+    Descripción: Descifra el paquete y verifica la firma. Devuelve una tupla
+                 con el mensaje, si la firma es válida y el estado
+                 ("Firma valida" o "SABOTAJE DETECTADO").
     """
 
     try:
@@ -279,7 +305,12 @@ def simular_intercambio(
     sabotaje: bool = False,
 ):
     """
-    Simula un intercambio completo.
+    Nombre función: simular_intercambio
+    Parámetros: nombre_emisor, llaves_emisor, nombre_receptor, llaves_receptor,
+                mensaje, sabotaje (bool, opcional, default False)
+    Descripción: Simula un envío completo entre dos miembros. Si sabotaje=True,
+                 altera el último byte del cuerpo cifrado para simular
+                 una interceptación.
     """
 
     paquete = enviar_mensaje(
