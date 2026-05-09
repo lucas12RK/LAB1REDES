@@ -11,8 +11,8 @@ Integrantes:
 
 ```text
 codigo/
-    |- fase1.py              # Fase I:  Identidad Criptográfica (KDF + RSA)
-    |- fase2.py
+    |- fase1.py              
+    |- fase2.py     
     |- fase3.py
     |- fase4.py
     |- claves/
@@ -35,6 +35,8 @@ codigo/
 
 ## Instalacion de dependencias:
 pip install -r requirements.txt
+
+o usar make install   [esto instala las dependencias de requirements.txt]
 
 ==========
 ## Ejecucion
@@ -84,3 +86,30 @@ Llaves persistidas bajo: C:\Users\lucas\Desktop\a\uni\redes\Laboratorio 1\codigo
 
 Las llaves generadas son deterministicas; correr fase1.py 2 veces con los mismos datos produce exactamente las mismas llaves.
 Nota: Para pycryptomode, se recomienda usar la version exacta señalada en requirements.txt
+
+## Ejecución
+
+### Opción 1: ejecutar todas las fases en orden
+
+```bash
+make all
+```
+
+### Opción 2: ejecutar fase por fase
+
+```bash
+make fase1     
+make fase2    
+make fase3     
+make fase4     
+```
+## Limpieza
+
+Para volver al estado inicial (borrar todos los archivos generados):
+
+```bash
+make clean
+```
+
+Esto elimina las carpetas `claves/` y `comunicaciones/`, el archivo
+`shares.txt`, y los `__pycache__/`.

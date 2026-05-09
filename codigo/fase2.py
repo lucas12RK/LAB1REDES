@@ -3,8 +3,8 @@ Operacion "Claves de Guerra" - Fase 2: Cifrado Híbrido y Análisis Visual.
 
 Decisiones de diseño:
     - Cifrado Simétrico: AES-128 en modo CBC para asegurar confidencialidad y ocultar patrones.
-    - Cifrado Asimétrico: RSA-OAEP con SHA-256 para cifrar la clave de sesión AES[cite: 2].
-    - Análisis BMP: Se preserva la cabecera (54 bytes) para permitir la visualización del efecto de patrones en ECB[cite: 2].
+    - Cifrado Asimétrico: RSA-OAEP con SHA-256 para cifrar la clave de sesión AES.
+    - Análisis BMP: Se preserva la cabecera (54 bytes) para permitir la visualización del efecto de patrones en ECB.
 """
 
 import os
@@ -24,7 +24,7 @@ def cifrar_archivo_hibrido(ruta_archivo: str, rol_receptor: str):
     Nombre función: cifrar_archivo_hibrido
     Parámetros: ruta_archivo (str), rol_receptor (str)
     Descripción: Implementa cifrado híbrido. Cifra el archivo con AES-128-CBC y 
-    la llave AES con la llave pública RSA (KEY1) del receptor[cite: 2].
+    la llave AES con la llave pública RSA (KEY1) del receptor.
     """
     # 1. Preparar llaves y datos
     llaves_receptor = cargar_llaves(rol_receptor)
@@ -34,11 +34,11 @@ def cifrar_archivo_hibrido(ruta_archivo: str, rol_receptor: str):
         datos_originales = f.read()
 
     # 2. Cifrado Simétrico (AES-128-CBC)
-    session_key = get_random_bytes(16) # 128 bits[cite: 2]
+    session_key = get_random_bytes(16) # 128 bits
     cipher_aes = AES.new(session_key, AES.MODE_CBC)
     datos_cifrados = cipher_aes.encrypt(pad(datos_originales, AES.block_size))
 
-    # 3. Cifrado Asimétrico de la llave (RSA-OAEP)[cite: 2]
+    # 3. Cifrado Asimétrico de la llave (RSA-OAEP)
     cipher_rsa = PKCS1_OAEP.new(pub_key_rsa)
     enc_session_key = cipher_rsa.encrypt(session_key)
 
@@ -56,7 +56,7 @@ def analizar_visual_bmp(ruta_bmp: str):
     Nombre función: analizar_visual_bmp
     Parámetros: ruta_bmp (str)
     Descripción: Genera dos versiones cifradas de una imagen preservando la cabecera 
-    para comparar la fuga de información entre modos ECB y CBC[cite: 2].
+    para comparar la fuga de información entre modos ECB y CBC.
     """
     with open(ruta_bmp, "rb") as f:
         header = f.read(54) # Cabecera estándar BMP
@@ -64,13 +64,13 @@ def analizar_visual_bmp(ruta_bmp: str):
 
     key = get_random_bytes(16)
     
-    # Modo ECB (Fuga de patrones)[cite: 2]
+    # Modo ECB (Fuga de patrones)
     cipher_ecb = AES.new(key, AES.MODE_ECB)
     data_ecb = cipher_ecb.encrypt(pad(data, AES.block_size))
     with open(DIR_SALIDA / "silo_cifrado_ECB.bmp", "wb") as f:
         f.write(header + data_ecb[:len(data)])
 
-    # Modo CBC (Seguro)[cite: 2]
+    # Modo CBC (Seguro)
     cipher_cbc = AES.new(key, AES.MODE_CBC)
     data_cbc = cipher_cbc.encrypt(pad(data, AES.block_size))
     with open(DIR_SALIDA / "silo_cifrado_CBC.bmp", "wb") as f:
